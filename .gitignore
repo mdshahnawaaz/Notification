@@ -1,1 +1,34 @@
-/.DS_Store
+# macOS
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Node / Vite
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Java / Spring Boot
+target/
+build/
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Environment and secrets. Keep application.properties tracked as requested.
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.jks
