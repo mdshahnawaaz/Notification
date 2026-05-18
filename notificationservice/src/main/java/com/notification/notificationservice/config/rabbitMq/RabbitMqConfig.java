@@ -2,12 +2,14 @@ package com.notification.notificationservice.config.rabbitMq;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 
 
-
+@Configuration
 public class RabbitMqConfig {
 
     @Bean
@@ -28,6 +30,13 @@ public class RabbitMqConfig {
     @Bean
     public Queue smsQueue() {
         return new Queue("sms.queue");      
+    }
+
+    @Bean
+    public Queue urgentNotificationQueue() {
+        return QueueBuilder.durable("urgent.notification.queue")
+                .maxPriority(10)
+                .build();
     }
 
     @Bean
@@ -54,6 +63,11 @@ public class RabbitMqConfig {
     @Bean
     public Binding bindingSmsQueue() {
         return BindingBuilder.bind(smsQueue()).to(directExchange()).with("sms.routing.key");
+    }
+
+    @Bean
+    public Binding bindingUrgentNotificationQueue() {
+        return BindingBuilder.bind(urgentNotificationQueue()).to(directExchange()).with("urgent.notification.routing.key");
     }
     
 }
