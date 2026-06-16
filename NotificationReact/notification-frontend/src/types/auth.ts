@@ -1,4 +1,5 @@
 export type AuthMode = 'login' | 'signup'
+export type AccessRole = 'admin' | 'user'
 export type UserType = 'FREE' | 'PREMIUM' | 'SUBSCRIBED'
 
 export type LoginRequest = {
@@ -17,3 +18,15 @@ export type UserResponse = {
   email: string
   userType: UserType
 }
+
+export type AdminSession = {
+  role: 'admin'
+  name: string
+  email: string
+}
+
+export type UserSession = UserResponse & {
+  role: 'user'
+}
+
+export type AppSession = AdminSession | UserSession

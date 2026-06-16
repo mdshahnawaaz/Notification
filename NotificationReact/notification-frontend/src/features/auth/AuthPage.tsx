@@ -57,8 +57,8 @@ export function AuthPage() {
       <section className="auth-panel" aria-labelledby="auth-title">
         <SectionHeader
           className="auth-copy"
-          description="Add users to the notification database and verify login from the same service."
-          eyebrow="User access"
+          description="Create customer accounts, assign a service tier, and verify user credentials without leaving the admin workspace."
+          eyebrow="Admin user management"
           id="auth-title"
           title={title}
         />

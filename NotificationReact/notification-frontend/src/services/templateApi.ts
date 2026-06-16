@@ -10,3 +10,7 @@ export function createTemplate(payload: CreateTemplateRequest) {
     body: payload,
   })
 }
+
+export function getTemplates() {
+  return apiRequest<TemplateResponse[]>('/templates')
+}

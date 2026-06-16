@@ -1,1 +1,1 @@
-export type AdminPage = 'templates' | 'users'
+export type AdminPage = 'messaging' | 'templates' | 'users'
