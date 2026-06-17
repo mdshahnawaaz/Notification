@@ -2,6 +2,7 @@ package com.notification.notificationservice.Dto;
 
 import com.notification.notificationservice.Entity.User;
 import com.notification.notificationservice.Entity.UserType;
+import com.notification.notificationservice.Entity.Role;
 
 public class UserResponse {
 
@@ -9,12 +10,14 @@ public class UserResponse {
     private String name;
     private String email;
     private UserType userType;
+    private Role role;
 
     public UserResponse(User user) {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
         this.userType = user.getUserType();
+        this.role = user.getRole();
     }
 
     public int getId() {
@@ -31,5 +34,9 @@ public class UserResponse {
 
     public UserType getUserType() {
         return userType;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { loginUser } from '../../services/authApi'
+import { setAuthToken } from '../../services/http'
 import type { AccessRole, AppSession } from '../../types/auth'
 import { StatusNotice } from '../../components/ui/StatusNotice'
 
@@ -33,25 +34,28 @@ export function AccessGate({ onAuthenticated }: AccessGateProps) {
     setIsSubmitting(true)
 
     try {
-      if (role === 'admin') {
-        if (
-          email.trim().toLowerCase() !== adminCredentials.email ||
-          password !== adminCredentials.password
-        ) {
-          throw new Error('Admin access denied. Use the configured console credentials.')
-        }
+      const auth = await loginUser({ email, password })
+      const resolvedRole = auth.user.role === 'ADMIN' ? 'admin' : 'user'
 
+      if (role !== resolvedRole) {
+        throw new Error(`This account has ${resolvedRole} access. Choose the ${resolvedRole} portal.`)
+      }
+
+      setAuthToken(auth.token)
+
+      if (resolvedRole === 'admin') {
         onAuthenticated({
           role: 'admin',
-          name: 'Admin Console',
-          email: adminCredentials.email,
+          name: auth.user.name,
+          email: auth.user.email,
+          token: auth.token,
         })
         return
       }
 
-      const user = await loginUser({ email, password })
-      onAuthenticated({ ...user, role: 'user' })
+      onAuthenticated({ ...auth.user, role: 'user', token: auth.token })
     } catch (error) {
+      setAuthToken(null)
       setMessage(
         error instanceof Error
           ? error.message

@@ -5,6 +5,7 @@ import { AuthPage } from './features/auth/AuthPage'
 import { MessagingPage } from './features/messaging/MessagingPage'
 import { TemplatesPage } from './features/templates/TemplatesPage'
 import { UserPortalPage } from './features/user/UserPortalPage'
+import { setAuthToken } from './services/http'
 import type { AppSession } from './types/auth'
 import type { AdminPage } from './types/navigation'
 import './App.css'
@@ -22,6 +23,7 @@ function App() {
       <UserPortalPage
         session={session}
         onSignOut={() => {
+          setAuthToken(null)
           setSession(null)
           setActivePage('messaging')
         }}
@@ -35,6 +37,7 @@ function App() {
       session={session}
       onPageChange={setActivePage}
       onSignOut={() => {
+        setAuthToken(null)
         setSession(null)
         setActivePage('messaging')
       }}

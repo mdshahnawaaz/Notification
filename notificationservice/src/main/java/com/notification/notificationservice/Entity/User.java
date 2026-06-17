@@ -29,15 +29,20 @@ public class User {
     @Column(nullable = false)
     private UserType userType;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private Role role;
+
     public User() {
     }
 
-    public User(int id, String name, String email, String password, UserType userType) {
+    public User(int id, String name, String email, String password, UserType userType, Role role) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.userType = userType;
+        this.role = role;
     }
 
     public int getId() {
@@ -60,6 +65,10 @@ public class User {
         return userType;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -78,5 +87,9 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

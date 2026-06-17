@@ -35,7 +35,7 @@ export function AuthPage() {
           ? await signupUser({ name, email, password, userType })
           : await loginUser({ email, password })
 
-      setSavedUser(user)
+      setSavedUser(user.user)
       setMessage(
         mode === 'signup'
           ? 'Account created and saved in database.'
